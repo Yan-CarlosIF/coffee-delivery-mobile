@@ -1,24 +1,30 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { SplashScreen } from "@components/SplashScreen";
+import { Baloo2_700Bold } from "@expo-google-fonts/baloo-2";
+import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
+import { defaultConfig } from "@tamagui/config/v4";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { createTamagui, TamaguiProvider } from "tamagui";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+const tamaguiConfig = createTamagui(defaultConfig);
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const [fontLoaded] = useFonts({
+    Roboto_700Bold,
+    Roboto_400Regular,
+    Baloo2_700Bold,
+  });
+
+  if (!fontLoaded) {
+    return <SplashScreen />;
+  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <SafeAreaView style={{ flex: 1 }}>
+      <TamaguiProvider config={tamaguiConfig}>
+        <Stack screenOptions={{ headerShown: false }} />
+      </TamaguiProvider>
+    </SafeAreaView>
   );
 }
