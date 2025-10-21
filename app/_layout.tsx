@@ -1,4 +1,3 @@
-import { SplashScreen } from "@components/SplashScreen";
 import { Baloo2_700Bold } from "@expo-google-fonts/baloo-2";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { defaultConfig } from "@tamagui/config/v4";
@@ -10,19 +9,15 @@ import { createTamagui, TamaguiProvider } from "tamagui";
 const tamaguiConfig = createTamagui(defaultConfig);
 
 export default function RootLayout() {
-  const [fontLoaded] = useFonts({
+  useFonts({
     Roboto_700Bold,
     Roboto_400Regular,
     Baloo2_700Bold,
   });
 
-  if (!fontLoaded) {
-    return <SplashScreen />;
-  }
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <TamaguiProvider config={tamaguiConfig}>
+      <TamaguiProvider config={tamaguiConfig} disableInjectCSS>
         <Stack screenOptions={{ headerShown: false }} />
       </TamaguiProvider>
     </SafeAreaView>
