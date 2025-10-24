@@ -1,9 +1,10 @@
 import CoffeeSeedImage from "@/assets/CoffeeSeed.png";
 import CoffeeImage from "@/assets/coffees/Type=Latte.png";
 import { CoffeeCard } from "@/components/CoffeeCard";
+import COFFEES from "@/constants/coffees";
 import { THEME } from "@/theme";
 import { MapPin, ShoppingCart } from "@tamagui/lucide-icons";
-import { Keyboard, TouchableWithoutFeedback } from "react-native";
+import { Keyboard, SectionList, TouchableWithoutFeedback } from "react-native";
 import {
   ButtonIcon,
   Image,
@@ -11,7 +12,7 @@ import {
   ScrollView,
   Text,
   XStack,
-  YStack
+  YStack,
 } from "tamagui";
 
 export default function Index() {
@@ -83,6 +84,87 @@ export default function Index() {
             >
               Nossos cafés
             </Text>
+
+            {/* Filters */}
+            <XStack marginTop={8} gap={8}>
+              <XStack
+                paddingVertical={4}
+                paddingHorizontal={8}
+                borderRadius={16}
+                borderWidth={1}
+                borderColor={THEME.colors["purple"]}
+              >
+                <Text
+                  textTransform="uppercase"
+                  fontWeight="bold"
+                  fontSize={12}
+                  color={THEME.colors["purple-dark"]}
+                >
+                  Tradicional
+                </Text>
+              </XStack>
+              <XStack
+                paddingVertical={4}
+                paddingHorizontal={8}
+                borderRadius={16}
+                borderWidth={1}
+                borderColor={THEME.colors["purple"]}
+              >
+                <Text
+                  textTransform="uppercase"
+                  fontWeight="bold"
+                  fontSize={12}
+                  color={THEME.colors["purple-dark"]}
+                >
+                  Doces
+                </Text>
+              </XStack>
+              <XStack
+                paddingVertical={4}
+                paddingHorizontal={8}
+                borderRadius={16}
+                borderWidth={1}
+                borderColor={THEME.colors["purple"]}
+              >
+                <Text
+                  textTransform="uppercase"
+                  fontWeight="bold"
+                  fontSize={12}
+                  color={THEME.colors["purple-dark"]}
+                >
+                  Especiais
+                </Text>
+              </XStack>
+            </XStack>
+
+            {/* Coffee List */}
+            <SectionList
+              sections={COFFEES}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <CoffeeCard
+                  style="horizontal"
+                  name={item.name}
+                  description={item.description}
+                  imageSrc={item.image}
+                  type={item.tags[0]}
+                  price={item.price}
+                />
+              )}
+              renderSectionHeader={({ section: { title } }) => (
+                <Text
+                  fontSize={18}
+                  fontFamily={THEME.fonts.baloo2}
+                  color={THEME.colors["gray-400"]}
+                  marginTop={32}
+                  marginBottom={32}
+                >
+                  {title}
+                </Text>
+              )}
+              contentContainerStyle={{ paddingBottom: 96 }}
+              showsVerticalScrollIndicator={false}
+            />
           </YStack>
         </YStack>
       </TouchableWithoutFeedback>
