@@ -2,20 +2,25 @@ import CoffeeSeedImage from "@/assets/CoffeeSeed.png";
 import CoffeeImage from "@/assets/coffees/Type=Latte.png";
 import { CoffeeCard } from "@/components/CoffeeCard";
 import COFFEES from "@/constants/coffees";
+import { Coffee } from "@/shared/Coffee";
 import { THEME } from "@/theme";
 import { MapPin, ShoppingCart } from "@tamagui/lucide-icons";
-import { Keyboard, SectionList, TouchableWithoutFeedback } from "react-native";
+import { useNavigation } from "expo-router";
 import {
-  ButtonIcon,
-  Image,
-  Input,
-  ScrollView,
-  Text,
-  XStack,
-  YStack,
-} from "tamagui";
+  Keyboard,
+  SectionList,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { Image, Input, ScrollView, Text, XStack, YStack } from "tamagui";
 
 export default function Index() {
+  const { navigate } = useNavigation();
+
+  function handleNavigateToCoffeeDetails(coffee: Coffee) {
+    navigate("coffee", { coffee });
+  }
+
   return (
     <ScrollView backgroundColor="white" flex={1}>
       <TouchableWithoutFeedback
@@ -34,13 +39,13 @@ export default function Index() {
                 <MapPin size={20} color={THEME.colors.purple} />
                 <Text color={THEME.colors["gray-900"]}>Porto Alegre, RS</Text>
               </XStack>
-              <ButtonIcon>
+              <TouchableOpacity>
                 <ShoppingCart
                   size={20}
                   fill={THEME.colors.yellow}
                   color={THEME.colors.yellow}
                 />
-              </ButtonIcon>
+              </TouchableOpacity>
             </XStack>
 
             <Text fontSize={20} fontFamily={THEME.fonts.baloo2} color="white">
@@ -143,6 +148,7 @@ export default function Index() {
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <CoffeeCard
+                  onPress={() => handleNavigateToCoffeeDetails(item)}
                   style="horizontal"
                   name={item.name}
                   description={item.description}

@@ -1,7 +1,7 @@
 import { THEME } from "@/theme";
-import { Card, Image, Text, XStack, YStack } from "tamagui";
+import { Card, CardProps, Image, Text, XStack, YStack } from "tamagui";
 
-type CoffeeCardProps = {
+type CoffeeCardProps = CardProps & {
   imageSrc: string;
   type: string;
   name: string;
@@ -17,10 +17,12 @@ export function CoffeeCard({
   name,
   price,
   style = "vertical",
+  ...rest
 }: CoffeeCardProps) {
   if (style === "horizontal")
     return (
       <Card
+        {...rest}
         borderWidth={1}
         flexDirection="row"
         borderTopLeftRadius={6}
@@ -80,6 +82,7 @@ export function CoffeeCard({
 
   return (
     <Card
+      {...rest}
       borderWidth={1}
       borderTopLeftRadius={6}
       borderTopRightRadius={36}
