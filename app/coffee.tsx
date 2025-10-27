@@ -133,6 +133,9 @@ export default function Coffee() {
             </TouchableOpacity>
           </XStack>
           <Button
+            pressStyle={{
+              backgroundColor: THEME.colors.purple,
+            }}
             height={46}
             backgroundColor={THEME.colors["purple-dark"]}
             borderRadius={6}

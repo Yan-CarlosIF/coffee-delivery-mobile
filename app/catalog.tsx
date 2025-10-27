@@ -17,9 +17,11 @@ import { Image, Input, ScrollView, Text, XStack, YStack } from "tamagui";
 export default function Index() {
   const { navigate } = useNavigation();
 
-  function handleNavigateToCoffeeDetails(coffee: Coffee) {
+  const handleNavigateToCoffeeDetails = (coffee: Coffee) => {
     navigate("coffee", { coffee });
-  }
+  };
+
+  const handleNavigateToCart = () => navigate("cart");
 
   return (
     <ScrollView backgroundColor="white" flex={1}>
@@ -39,7 +41,7 @@ export default function Index() {
                 <MapPin size={20} color={THEME.colors.purple} />
                 <Text color={THEME.colors["gray-900"]}>Porto Alegre, RS</Text>
               </XStack>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={handleNavigateToCart}>
                 <ShoppingCart
                   size={20}
                   fill={THEME.colors.yellow}

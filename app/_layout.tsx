@@ -18,7 +18,10 @@ export default function RootLayout() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TamaguiProvider config={tamaguiConfig} disableInjectCSS>
-        <Stack screenOptions={{ headerShown: false }} />
+        <Stack
+          initialRouteName="catalog"
+          screenOptions={{ headerShown: false }}
+        />
       </TamaguiProvider>
     </SafeAreaView>
   );
